@@ -43,7 +43,7 @@ public class ServiceList {
 	@Column(name = "priceRange")
 	private String priceRange;
 	
-	@OneToMany(mappedBy = "serviceId", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "servicesId", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<ServiceProviders> serviceProviderList = new ArrayList<>();
 
 }

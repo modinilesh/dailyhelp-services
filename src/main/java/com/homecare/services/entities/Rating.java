@@ -35,8 +35,8 @@ public class Rating {
 	private String reviewComment;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "providerId", nullable = false)
-	private Long providerId;
+	@JoinColumn(name = "providersId", nullable = false)
+	private ServiceProviders providersId;
 	
 	
 
