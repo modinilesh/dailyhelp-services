@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table( name = "servicel_list", 
+@Table( name = "service_list", 
 		uniqueConstraints = {@UniqueConstraint(columnNames = {"service_name"})}
 	   )
 @Getter
