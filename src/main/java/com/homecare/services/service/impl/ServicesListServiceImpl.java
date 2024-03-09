@@ -74,7 +74,7 @@ public class ServicesListServiceImpl implements ServicesListService {
 
 
 	@Override
-	public String getAllServices() {
+	public List<ServiceListDto> getAllServices() {
 		// TODO Auto-generated method stub
 		List<ServiceList> serviceList=new ArrayList<>();
 		serviceList=serviceListRepository.findAll();
@@ -82,7 +82,7 @@ public class ServicesListServiceImpl implements ServicesListService {
 		for(ServiceList s: serviceList){
 			serviceListDTOs.add(mapToDto(s));
 		}
-		return serviceListDTOs.toString();
+		return serviceListDTOs;
 		//throw new UnsupportedOperationException("Unimplemented method 'getAllServices'");
 	}
 	@Override
@@ -97,7 +97,7 @@ public class ServicesListServiceImpl implements ServicesListService {
 				return serviceListDTOs;
 			}
 		}
-		
+
 		return serviceListDTOs;
 
 	}

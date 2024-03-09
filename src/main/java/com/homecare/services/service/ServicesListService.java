@@ -8,6 +8,6 @@ public interface ServicesListService {
 	
 	//creating Service
 	ServiceListDto createService(ServiceListDto serviceListDto);
-	public String getAllServices();
+	public List<ServiceListDto> getAllServices();
 	public ServiceListDto getServiceByName(String name);
 }

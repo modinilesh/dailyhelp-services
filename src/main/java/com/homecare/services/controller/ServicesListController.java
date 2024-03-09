@@ -1,5 +1,7 @@
 package com.homecare.services.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,8 @@ public class ServicesListController {
 	}
 
 	@GetMapping("/getAllServices")
-	public ResponseEntity<String> getAllServices(){
-		return new ResponseEntity<String>(services.getAllServices(),HttpStatus.OK);
+	public ResponseEntity<List<ServiceListDto>> getAllServices(){
+		return new ResponseEntity<List<ServiceListDto>>(services.getAllServices(),HttpStatus.OK);
 	}
 
 	@GetMapping("/getServiceByName")
