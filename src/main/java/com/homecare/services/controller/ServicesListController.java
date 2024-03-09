@@ -3,9 +3,11 @@ package com.homecare.services.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.homecare.services.payload.ServiceListDto;
@@ -22,6 +24,16 @@ public class ServicesListController {
 	@PostMapping("/create")
 	public ResponseEntity<ServiceListDto> createService(@RequestBody ServiceListDto serviceListDto){
 		return new ResponseEntity<ServiceListDto>(services.createService(serviceListDto), HttpStatus.CREATED);
+	}
+
+	@GetMapping("/getAllServices")
+	public ResponseEntity<String> getAllServices(){
+		return new ResponseEntity<String>(services.getAllServices(),HttpStatus.OK);
+	}
+
+	@GetMapping("/getServiceByName")
+	public ResponseEntity<ServiceListDto> getServiceByName(@RequestBody String name){
+		return new ResponseEntity<ServiceListDto>(services.getServiceByName(name),HttpStatus.OK);
 	}
 
 }

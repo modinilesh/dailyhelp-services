@@ -1,5 +1,8 @@
 package com.homecare.services.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,8 @@ public class ServicesListServiceImpl implements ServicesListService {
 	@Autowired
 	private ServiceListRepository serviceListRepository;
 
-	
-	
+
+
 	//Create Service
 	@Override
 	public ServiceListDto createService(ServiceListDto serviceListDto) {
@@ -28,16 +31,16 @@ public class ServicesListServiceImpl implements ServicesListService {
 
 		// map service to DTO
 		ServiceListDto responseService = mapToDto(savedService);
-		
+
 		return responseService;
 
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	public ServiceList mapToService(ServiceListDto serviceListDto) {
 
@@ -50,9 +53,9 @@ public class ServicesListServiceImpl implements ServicesListService {
 
 		return serviceList;
 	}
-
+ 
 	public ServiceListDto mapToDto(ServiceList serviceList) {
-
+ 
 		ServiceListDto serviceListDto = new ServiceListDto();
 
 		// mapping fields
@@ -63,5 +66,42 @@ public class ServicesListServiceImpl implements ServicesListService {
 
 		return serviceListDto;
 	}
+
+
+
+
+
+
+
+	@Override
+	public String getAllServices() {
+		// TODO Auto-generated method stub
+		List<ServiceList> serviceList=new ArrayList<>();
+		serviceList=serviceListRepository.findAll();
+		List<ServiceListDto> serviceListDTOs=new ArrayList<>();
+		for(ServiceList s: serviceList){
+			serviceListDTOs.add(mapToDto(s));
+		}
+		return serviceListDTOs.toString();
+		//throw new UnsupportedOperationException("Unimplemented method 'getAllServices'");
+	}
+	@Override
+	public ServiceListDto getServiceByName(String name){
+		List<ServiceList> serviceList=new ArrayList<>();
+		serviceList=serviceListRepository.findAll();
+		ServiceListDto serviceListDTOs=new ServiceListDto();
+		//String ans=null;
+		for(ServiceList s: serviceList){
+			if(name.equals(s.getServiceName())){
+				serviceListDTOs=mapToDto(s);
+				return serviceListDTOs;
+			}
+		}
+		
+		return serviceListDTOs;
+
+	}
+
+	
 
 }
