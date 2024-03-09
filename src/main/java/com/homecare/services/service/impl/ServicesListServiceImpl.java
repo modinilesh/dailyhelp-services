@@ -83,23 +83,29 @@ public class ServicesListServiceImpl implements ServicesListService {
 			serviceListDTOs.add(mapToDto(s));
 		}
 		return serviceListDTOs;
-		//throw new UnsupportedOperationException("Unimplemented method 'getAllServices'");
 	}
 	@Override
-	public ServiceListDto getServiceByName(String name){
-		List<ServiceList> serviceList=new ArrayList<>();
-		serviceList=serviceListRepository.findAll();
+	public ServiceListDto getServiceByName(String serviceName){
+		
+		ServiceList serviceLists=serviceListRepository.findByserviceName(serviceName);
+
 		ServiceListDto serviceListDTOs=new ServiceListDto();
-		//String ans=null;
-		for(ServiceList s: serviceList){
-			if(name.equals(s.getServiceName())){
-				serviceListDTOs=mapToDto(s);
-				return serviceListDTOs;
-			}
+		serviceListDTOs=mapToDto(serviceLists);
+		return  serviceListDTOs;
+		
+	}
+
+	@Override
+	public List<ServiceListDto> getServiceByType(String serviceType){
+		
+		List<ServiceList> serviceLists=serviceListRepository.findAllByserviceType(serviceType);
+
+		List<ServiceListDto> serviceListDTOs=new ArrayList<>();
+		for(ServiceList s: serviceLists){
+			serviceListDTOs.add(mapToDto(s));
 		}
-
-		return serviceListDTOs;
-
+		
+		return  serviceListDTOs;
 	}
 
 	

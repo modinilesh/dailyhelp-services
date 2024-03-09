@@ -9,5 +9,7 @@ public interface ServicesListService {
 	//creating Service
 	ServiceListDto createService(ServiceListDto serviceListDto);
 	public List<ServiceListDto> getAllServices();
-	public ServiceListDto getServiceByName(String name);
+	public ServiceListDto getServiceByName(String serviceName);
+
+	public List<ServiceListDto> getServiceByType(String serviceType);
 }
