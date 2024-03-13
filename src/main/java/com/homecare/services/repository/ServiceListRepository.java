@@ -12,4 +12,5 @@ public interface ServiceListRepository extends JpaRepository<ServiceList, Long> 
     // jaise hame serviceName se filter karna tha to humne method name rakha- findBy+column Name i.e serviceName
      ServiceList findByserviceName(String serviceName);
      List<ServiceList> findAllByserviceType(String serviceType);
+     ServiceList findByServiceId(Long serviceId);
 }

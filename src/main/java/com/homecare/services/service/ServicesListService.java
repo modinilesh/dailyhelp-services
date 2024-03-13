@@ -12,4 +12,9 @@ public interface ServicesListService {
 	public ServiceListDto getServiceByName(String serviceName);
 
 	public List<ServiceListDto> getServiceByType(String serviceType);
+
+	public ServiceListDto updateServiceById(Long serviceId, ServiceListDto serviceListDto);
+	//public ServiceListDto updateService(ServiceListDto serviceListDto);
+	public String deleteService(ServiceListDto serviceListDto);
+	public String deleteServiceById(Long serviceId);
 }
