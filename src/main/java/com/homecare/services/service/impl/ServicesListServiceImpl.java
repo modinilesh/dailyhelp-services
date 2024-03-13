@@ -2,6 +2,7 @@ package com.homecare.services.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,24 +84,85 @@ public class ServicesListServiceImpl implements ServicesListService {
 			serviceListDTOs.add(mapToDto(s));
 		}
 		return serviceListDTOs;
-		//throw new UnsupportedOperationException("Unimplemented method 'getAllServices'");
 	}
 	@Override
-	public ServiceListDto getServiceByName(String name){
-		List<ServiceList> serviceList=new ArrayList<>();
-		serviceList=serviceListRepository.findAll();
-		ServiceListDto serviceListDTOs=new ServiceListDto();
-		//String ans=null;
-		for(ServiceList s: serviceList){
-			if(name.equals(s.getServiceName())){
-				serviceListDTOs=mapToDto(s);
-				return serviceListDTOs;
-			}
-		}
+	public ServiceListDto getServiceByName(String serviceName){
+		
+		ServiceList serviceLists=serviceListRepository.findByserviceName(serviceName);
 
-		return serviceListDTOs;
+		ServiceListDto serviceListDTOs=new ServiceListDto();
+		serviceListDTOs=mapToDto(serviceLists);
+		return  serviceListDTOs;
+		
+	}
+
+	@Override
+	public List<ServiceListDto> getServiceByType(String serviceType){
+		
+		List<ServiceList> serviceLists=serviceListRepository.findAllByserviceType(serviceType);
+
+		List<ServiceListDto> serviceListDTOs=new ArrayList<>();
+		for(ServiceList s: serviceLists){
+			serviceListDTOs.add(mapToDto(s));
+		}
+		
+		return  serviceListDTOs;
+	}
+
+	@Override
+	public String deleteService(ServiceListDto serviceListDto){
+
+		ServiceListDto serviceListDtoOld=new ServiceListDto();
+		serviceListDtoOld=getServiceByName(serviceListDto.getServiceName());
+		serviceListRepository.deleteById(serviceListDtoOld.getServiceId());
+		return "Service deleted Successfully";
+	}
+
+	@Override
+	public String deleteServiceById(Long serviceId){
+		//ServiceListDto serviceListDto=new ServiceListDto();
+		serviceListRepository.deleteById(serviceId);
+		return "Service deleted Successfully with id = "+serviceId;
+	}
+
+	@Override
+	public ServiceListDto updateServiceById(Long serviceId, ServiceListDto serviceListDto){
+		ServiceList serviceListOld=serviceListRepository.findByServiceId(serviceId);
+		
+		serviceListOld.setPriceRange(serviceListDto.getPriceRange());
+		serviceListOld.setServiceName(serviceListDto.getServiceName());
+		serviceListOld.setServiceType(serviceListDto.getServiceType());
+		//serviceListOld.setServiceProviderList(serviceListDto.getServiceProviderList());
+
+		ServiceList savedService = serviceListRepository.save(serviceListOld);
+		return mapToDto(savedService);
 
 	}
+
+	
+	// public ServiceListDto updateService(ServiceListDto serviceListDto) {
+	// 	// TODO Auto-generated method stub
+		
+
+	// 	ServiceListDto serviceListDtoOld=new ServiceListDto();
+	// 	serviceListDtoOld=getServiceByName(serviceListDto.getServiceName());
+	// 	//serviceListDtoOld=serviceListRepository.getReferenceById(serviceListDtoOld.getServiceId());
+	// 	//ServiceList serviceList = mapToService(serviceListDtoOld);
+	// 	Optional<ServiceList> serviceListTemp =serviceListRepository.findById(serviceListDtoOld.getServiceId());
+    //     ServiceList serviceList=serviceListTemp.get();
+	// 	serviceList.setPriceRange(serviceListDto.getPriceRange());
+	// 	serviceList.setServiceName(serviceListDto.getServiceName());
+	// 	serviceList.setServiceType(serviceListDto.getServiceType());
+	// 	serviceList.setServiceProviderList(serviceListDto.getServiceProviderList());
+	// 	// add object in DB
+	// 	serviceListTemp=Optional.of(serviceList);
+	// 	ServiceList savedService = serviceListRepository.save(serviceListTemp.get());
+
+	// 	// map service to DTO
+	// 	ServiceListDto responseService = mapToDto(savedService);
+	// 	return serviceListDto;
+	// 	//throw new UnsupportedOperationException("Unimplemented method 'updateService'");
+	// }
 
 	
 
