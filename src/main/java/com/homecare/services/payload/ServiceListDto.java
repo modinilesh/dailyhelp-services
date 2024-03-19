@@ -3,6 +3,7 @@ package com.homecare.services.payload;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.homecare.services.entities.ServiceProviders;
 
 import lombok.AllArgsConstructor;
