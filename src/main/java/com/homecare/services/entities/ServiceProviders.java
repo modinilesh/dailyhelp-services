@@ -3,6 +3,9 @@ package com.homecare.services.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,8 +64,9 @@ public class ServiceProviders {
 	private int providerFee;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "servicesId", nullable = false)
-	private ServiceList servicesId;
+	@JoinColumn(name = "serviceId", nullable = false)
+	@JsonBackReference
+	private ServiceList serviceId;
 	
 //	private Long jobsCompleted;
 	

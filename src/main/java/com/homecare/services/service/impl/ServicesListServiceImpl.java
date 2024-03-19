@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class ServicesListServiceImpl implements ServicesListService {
 
 	@Autowired
 	private ServiceListRepository serviceListRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 
 
@@ -38,42 +42,6 @@ public class ServicesListServiceImpl implements ServicesListService {
 	}
 
 
-
-
-
-
-
-	public ServiceList mapToService(ServiceListDto serviceListDto) {
-
-		ServiceList serviceList = new ServiceList();
-
-		// mapping fields
-		serviceList.setServiceName(serviceListDto.getServiceName());
-		serviceList.setServiceType(serviceListDto.getServiceType());
-		serviceList.setPriceRange(serviceListDto.getPriceRange());
-
-		return serviceList;
-	}
- 
-	public ServiceListDto mapToDto(ServiceList serviceList) {
- 
-		ServiceListDto serviceListDto = new ServiceListDto();
-
-		// mapping fields
-		serviceListDto.setServiceId(serviceList.getServiceId());
-		serviceListDto.setServiceName(serviceList.getServiceName());
-		serviceListDto.setServiceType(serviceList.getServiceType());
-		serviceListDto.setPriceRange(serviceList.getPriceRange());
-
-		return serviceListDto;
-	}
-
-
-
-
-
-
-
 	@Override
 	public List<ServiceListDto> getAllServices() {
 		// TODO Auto-generated method stub
@@ -85,6 +53,7 @@ public class ServicesListServiceImpl implements ServicesListService {
 		}
 		return serviceListDTOs;
 	}
+
 	@Override
 	public ServiceListDto getServiceByName(String serviceName){
 		
@@ -163,6 +132,37 @@ public class ServicesListServiceImpl implements ServicesListService {
 	// 	return serviceListDto;
 	// 	//throw new UnsupportedOperationException("Unimplemented method 'updateService'");
 	// }
+	
+	
+	
+	public ServiceList mapToService(ServiceListDto serviceListDto) {
+
+//		ServiceList serviceList = new ServiceList();
+//
+//		// mapping fields
+//		serviceList.setServiceName(serviceListDto.getServiceName());
+//		serviceList.setServiceType(serviceListDto.getServiceType());
+//		serviceList.setPriceRange(serviceListDto.getPriceRange());
+		ServiceList serviceList = modelMapper.map(serviceListDto, ServiceList.class);
+		return serviceList;
+	}
+ 
+	public ServiceListDto mapToDto(ServiceList serviceList) {
+ 
+//		ServiceListDto serviceListDto = new ServiceListDto();
+//
+//		// mapping fields
+//		serviceListDto.setServiceId(serviceList.getServiceId());
+//		serviceListDto.setServiceName(serviceList.getServiceName());
+//		serviceListDto.setServiceType(serviceList.getServiceType());
+//		serviceListDto.setPriceRange(serviceList.getPriceRange());
+		ServiceListDto response = modelMapper.map(serviceList, ServiceListDto.class);
+		
+
+		return response;
+	}
+
+
 
 	
 
